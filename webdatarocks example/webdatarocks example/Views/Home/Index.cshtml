@@ -1,0 +1,121 @@
+﻿@{
+    ViewData["Title"] = "Webdatarocks Example";
+}
+
+<h2 style="text-align:center;">@ViewData["Title"]</h2>
+<br />
+<head>
+    <link href="~/lib/webdatarocks-1.0.2/webdatarocks.min.css" rel="stylesheet" />
+    <script src="~/lib/webdatarocks-1.0.2/webdatarocks.toolbar.min.js"></script>
+    <script src="~/lib/webdatarocks-1.0.2/webdatarocks.js"></script>
+    <link rel="stylesheet" type="text/css" href="~/lib/webdatarocks-1.0.2/theme/lightblue/webdatarocks.min.css" />
+    <script src="~/lib/webdatarocks-1.0.2/webdatarocks.googlecharts.js"></script>
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
+</head>
+
+<table>
+    <tr>
+        <td style="width: 800px;"><div id="wdr-component"></div></td>
+        <td><div id="googlechart-container" style="width:750px;height:550px;"></div></td>
+    </tr>
+</table>
+
+<script type="text/javascript" charset="utf-8">
+
+    var pivot = new WebDataRocks({
+        container: "#wdr-component",
+        toolbar: true,
+        report: {
+            "dataSource": {
+                "dataSourceType": "csv",
+                "filename": "https://cdn.webdatarocks.com/data/data.csv"
+            },
+            "slice": {
+                "rows": [{
+                    "uniqueName": "Country",
+                    "sort": "asc"
+                }],
+                "columns": [{
+                    "uniqueName": "Category",
+                    "sort": "asc"
+                }, {
+                    "uniqueName": "Measures"
+                }],
+                "measures": [{
+                    "uniqueName": "Revenue",
+                    "formula": "sum(\"Price\") * sum(\"Quantity\") ",
+                    "individual": true,
+                    "caption": "Revenue"
+                }]
+            },
+            "formats": [{
+                "name": "",
+                "thousandsSeparator": " ",
+                "decimalSeparator": ".",
+                "decimalPlaces": 2,
+                "maxSymbols": 20,
+                "currencySymbol": "",
+                "currencySymbolAlign": "left",
+                "nullValue": " ",
+                "infinityValue": "Infinity",
+                "divideByZeroValue": "Infinity"
+            }]
+        },
+        reportcomplete: function () {
+            pivot.off("reportcomplete");
+            pivotTableReportComplete = true;
+            createGoogleChart();
+        }
+    });
+
+    var pivotTableReportComplete = false;
+    var googleChartsLoaded = false;
+
+    google.charts.load('current', {
+        'packages': ['geochart'],
+        'mapsApiKey': 'AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY'
+    });
+    google.charts.setOnLoadCallback(onGoogleChartsLoaded);
+
+    function onGoogleChartsLoaded() {
+        googleChartsLoaded = true;
+        if (pivotTableReportComplete) {
+            createGoogleChart();
+        }
+    }
+
+    function createGoogleChart() {
+        if (googleChartsLoaded) {
+            pivot.googlecharts.getData({
+                type: "bar"
+            },
+                drawChart,
+                drawChart
+            );
+        }
+    }
+
+    function drawChart(_data) {
+        var data = google.visualization.arrayToDataTable(_data.data);
+
+        var options = {
+            colorAxis: {
+                colors: ['#2f682f', '#367736', '#3d863d', '#449544']
+            },
+            backgroundColor: '#b3e5fc',
+            datalessRegionColor: '#ffffff',
+            defaultColor: '#f5f5f5',
+            tooltip: {
+                textStyle: {
+                    fontSize: 17,
+                    fontName: 'Proxima Nova'
+                }
+            }
+        };
+
+        var chart = new google.visualization.GeoChart(document.getElementById('googlechart-container'));
+        chart.draw(data, options);
+    }
+
+
+</script>
