@@ -1,0 +1,11 @@
+D:\EKO\ANDROID\PROJECT\asp.net-core\upload_file\upload_file\bin\Debug\netcoreapp2.0\upload_file.deps.json
+D:\EKO\ANDROID\PROJECT\asp.net-core\upload_file\upload_file\bin\Debug\netcoreapp2.0\upload_file.runtimeconfig.json
+D:\EKO\ANDROID\PROJECT\asp.net-core\upload_file\upload_file\bin\Debug\netcoreapp2.0\upload_file.runtimeconfig.dev.json
+D:\EKO\ANDROID\PROJECT\asp.net-core\upload_file\upload_file\bin\Debug\netcoreapp2.0\upload_file.dll
+D:\EKO\ANDROID\PROJECT\asp.net-core\upload_file\upload_file\bin\Debug\netcoreapp2.0\upload_file.pdb
+D:\EKO\ANDROID\PROJECT\asp.net-core\upload_file\upload_file\obj\Debug\netcoreapp2.0\upload_file.csprojResolveAssemblyReference.cache
+D:\EKO\ANDROID\PROJECT\asp.net-core\upload_file\upload_file\obj\Debug\netcoreapp2.0\upload_file.csproj.CoreCompileInputs.cache
+D:\EKO\ANDROID\PROJECT\asp.net-core\upload_file\upload_file\obj\Debug\netcoreapp2.0\upload_file.AssemblyInfoInputs.cache
+D:\EKO\ANDROID\PROJECT\asp.net-core\upload_file\upload_file\obj\Debug\netcoreapp2.0\upload_file.AssemblyInfo.cs
+D:\EKO\ANDROID\PROJECT\asp.net-core\upload_file\upload_file\obj\Debug\netcoreapp2.0\upload_file.dll
+D:\EKO\ANDROID\PROJECT\asp.net-core\upload_file\upload_file\obj\Debug\netcoreapp2.0\upload_file.pdb
