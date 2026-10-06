@@ -560,26 +560,41 @@
                 dom: 'Bfrtip',
                 ordering: false,
                 buttons: [
+                    'colvis',
                     {
                         extend: 'pdf',
                         text: 'Export PDF',
                         title: "Export PDF With Multiple Header",
                         className: 'btn btn-info btn-sm',
                         filename: 'Print',
+                        exportOptions: {
+                            columns: ':visible'
+                        },
                         customize: function (pdfDocument) {
                             pdfDocument.content[1].table.headerRows = 2;
                             var firstHeaderRow = [];
+                            var visibleCols = $('#table1').DataTable().columns(':visible').indexes().toArray();
+                            var colIndex = 0;
                             $('#table1').find("thead>tr:first-child>th").each(
                                 function (index, element) {
-                                    var colSpan = element.getAttribute("colSpan");
+                                    var colSpan = parseInt(element.getAttribute("colSpan") || 1);
+                                    var visibleInGroup = 0;
+                                    for (var j = 0; j < colSpan; j++) {
+                                        if (visibleCols.indexOf(colIndex + j) !== -1) {
+                                            visibleInGroup++;
+                                        }
+                                    }
+                                    colIndex += colSpan;
 
-                                    firstHeaderRow.push({
-                                        text: element.innerHTML,
-                                        style: "tableHeader",
-                                        colSpan: colSpan
-                                    });
-                                    for (var i = 0; i < colSpan - 1; i++) {
-                                        firstHeaderRow.push({});
+                                    if (visibleInGroup > 0) {
+                                        firstHeaderRow.push({
+                                            text: element.innerHTML,
+                                            style: "tableHeader",
+                                            colSpan: visibleInGroup
+                                        });
+                                        for (var i = 0; i < visibleInGroup - 1; i++) {
+                                            firstHeaderRow.push({});
+                                        }
                                     }
                                 });
                             
